@@ -1,0 +1,55 @@
+@page "/FileUpload"
+
+<div class="col-lg-10 d-flex">
+    <div class="col-lg-6 col-md-6 control-section sb-property-border">
+        <div class="control-wrapper">
+            <SfUploader @ref="UploadObj" AutoUpload="SetAutoUpload" SequentialUpload="SetSequentialUpload">
+                <UploaderEvents OnRemove="OnFileRemove"></UploaderEvents>
+                <UploaderAsyncSettings SaveUrl="https://aspnetmvc.syncfusion.com/services/api/uploadbox/Save" RemoveUrl="https://aspnetmvc.syncfusion.com/services/api/uploadbox/Remove"></UploaderAsyncSettings>
+            </SfUploader>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 mt-5">
+        <div class='property-panel-section'>
+            <div class="property-panel-header">Properties</div>
+            <div class="property-panel-content">
+                <SfCheckBox Label="Auto upload" ValueChange="OnAutoChange" TChecked="bool"></SfCheckBox>
+            </div>
+            <div class="property-panel-content">
+                <SfCheckBox Label="Sequential upload" ValueChange="OnSequentialChange" TChecked="bool"></SfCheckBox>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .control-wrapper {
+        max-width: 350px;
+        margin: 0 auto;
+        padding: 50px 0px 0px;
+    }
+    .property-panel-content {
+        padding: 0px 0px 20px 0px;
+    }
+    .property-panel-content:last-child {
+        padding: 0px 0px 40px 0px;
+    }
+</style>
+@code {
+    SfUploader UploadObj;
+    private bool SetAutoUpload { get; set; } = false;
+    private bool SetSequentialUpload { get; set; } = false;
+    public void OnFileRemove(RemovingEventArgs args)
+    {
+        args.PostRawFile = false;
+    }
+    public void OnAutoChange(Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args)
+    {
+        this.UploadObj.ClearAllAsync();
+        this.SetAutoUpload = args.Checked;
+    }
+    public void OnSequentialChange(Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args)
+    {
+        this.UploadObj.ClearAllAsync();
+        this.SetSequentialUpload = args.Checked;
+    }
+}

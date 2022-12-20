@@ -1,0 +1,19 @@
+﻿<MudNavMenu Rounded="true" Margin="Margin.Dense" Color="Color.Primary" Class="pa-2 my-2">
+    <div class="d-flex px-2 flex-grow-1 gap-4">
+        <MudText Color="Color.Primary" Typo="Typo.h6"  Class="flex-none d-flex my-auto">Layout Template</MudText>
+    </div>
+    
+    <MudDivider Class="my-1"/>
+    
+    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Outlined.Dashboard">Dashboard</MudNavLink>
+    <MudNavLink Href="/Users" Match="NavLinkMatch.All" Icon="@Icons.Outlined.DataArray">Data Grid</MudNavLink>
+    <MudNavLink Href="/Scheduler" Match="NavLinkMatch.All" Icon="@Icons.Outlined.Schedule">Scheduler</MudNavLink>
+    <MudNavLink Href="/FileUpload" Match="NavLinkMatch.All" Icon="@Icons.Outlined.UploadFile">File Upload</MudNavLink>
+    <MudNavLink Href="/Dialogs" Match="NavLinkMatch.All" Icon="@Icons.Outlined.Pages">Dialogs</MudNavLink>
+    <MudNavLink Href="/Pages" Match="NavLinkMatch.All" Icon="@Icons.Outlined.Newspaper">Pages</MudNavLink>
+    <MudNavLink Href="/Toasts" Match="NavLinkMatch.All" Icon="@Icons.Outlined.Notifications">Toasts</MudNavLink>
+    <MudNavGroup Title="Settings" Expanded="true">
+        <MudNavLink Href="/security" Match="NavLinkMatch.Prefix">Security</MudNavLink>
+    </MudNavGroup>
+    <MudNavLink Href="/about" Match="NavLinkMatch.Prefix">About</MudNavLink>
+</MudNavMenu>

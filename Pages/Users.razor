@@ -1,0 +1,169 @@
+@page "/Users"
+
+@using System.Net.Http.Json
+@* @using MudBlazor.Examples.Data.Models *@
+@inject HttpClient httpClient
+
+<div class="m-3">
+    <MudTable Style="color: white; background-color: #fefefe;" Items="@Elements" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" FixedHeader="true"  @bind-SelectedItem="selectedItem1">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Periodic Elements</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh style="@($"color: #000 !important; background-color: {headerColor} !important;")">Nr</MudTh>
+            <MudTh style="@($"color: #000 !important; background-color: {headerColor} !important;")">Sign</MudTh>
+            <MudTh style="@($"color: #000 !important; background-color: {headerColor} !important;")">Name</MudTh>
+            <MudTh style="@($"color: #000 !important; background-color: {headerColor} !important;")">Position</MudTh>
+            <MudTh style="@($"color: #000 !important; background-color: {headerColor} !important;")">Molar mass</MudTh>
+            <MudTh style="@($"color: #000 !important; background-color: {headerColor} !important;")">Actions</MudTh>
+        </HeaderContent>
+        <RowTemplate >
+            <MudTd style="@($"color: #000 !important; background-color: {tableColor} !important;")">@context.Number</MudTd>
+            <MudTd style="@($"color: #000 !important; background-color: {tableColor} !important;")">@context.Sign</MudTd>
+            <MudTd style="@($"color: #000 !important; background-color: {tableColor} !important;")">@context.Name</MudTd>
+            <MudTd style="@($"color: #000 !important; background-color: {tableColor} !important;")">@context.Position</MudTd>
+            <MudTd style="@($"color: #000 !important; background-color: {tableColor} !important;")">@context.Molar</MudTd>
+            <MudTd style="@($"color: #000 !important; background-color: {tableColor} !important;")">
+                @* <MudIconButton OnClick="@openCalender" Icon="@Icons.Material.Outlined.EditCalendar" Color="Color.Primary" Size="Size.Small" /> *@
+                <MudIconButton Icon="@Icons.Material.Outlined.Edit" Color="Color.Primary" Size="Size.Small"/>
+                <MudIconButton Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" Size="Size.Small"/>
+            </MudTd>
+            
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+</div>
+
+<div class="m-3">
+    <div class="d-flex flex-wrap mt-4">
+        <MudSwitch @bind-Checked="@hover" Color="Color.Primary">Hover</MudSwitch>
+        <MudSwitch @bind-Checked="@dense" Color="Color.Secondary">Dense</MudSwitch>
+        <MudSwitch @bind-Checked="@striped" Color="Color.Tertiary">Striped</MudSwitch>
+        <MudSwitch @bind-Checked="@bordered" Color="Color.Warning">Bordered</MudSwitch>
+        <MudText Inline="true" Class="align-self-center">Selected1: @selectedItem1?.Name</MudText>
+    </div>
+        <MudColorPicker @bind-text="@headerColor" @ref="_backgroundColorPicker" PickerVariant="PickerVariant.Dialog"  ColorPickerMode="MudBlazor.ColorPickerMode.HEX"  ColorPickerView="ColorPickerView.Palette"/>
+        <MudColorPicker @bind-Text="@tableColor"  @ref="_backgroundColorPicker2" PickerVariant="PickerVariant.Dialog"  ColorPickerMode="MudBlazor.ColorPickerMode.HEX"  ColorPickerView="ColorPickerView.Palette"/>
+        <SfDatePicker TValue="DateTime?" Value="@DateValue" Placeholder="Choose a Date" Min="@MinDate" Max="@MaxDate" ShowClearButton="true" @ref="datePicker"></SfDatePicker>
+</div>
+
+<style>
+        .mud-picker > div > div.mud-input-control-input-container{
+            visibility: visible;
+        }
+</style>
+
+@code {
+    
+    public DateTime DateValue { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 10);
+    public DateTime MinDate { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 05);
+    public DateTime MaxDate { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 27);
+    
+    //create a datepicker reference
+    SfDatePicker<DateTime?> datePicker = new SfDatePicker<DateTime?>();
+    
+    
+    
+    private MudColorPicker _backgroundColorPicker = new();
+    private MudColorPicker _backgroundColorPicker2 = new();
+
+
+    string headerColor = string.Empty;
+    string tableColor = string.Empty;
+    
+    private bool dense = false;
+    private bool hover = true;
+    private bool striped = false;
+    private bool bordered = false;
+    private string searchString1 = "";
+    
+    //create a list of items with Number, Sign, Name, Position and Molar
+    private List<Element> Elements { get; set; } = new List<Element>();
+    
+    //give it random values
+    private Element selectedItem1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        headerColor = "#fff";
+         tableColor = "#fff";
+        
+        Elements = new List<Element>
+        {
+            new Element
+            {
+                Number = 1,
+                Sign = "H",
+                Name = "Hydrogen",
+                Position = "Nonmetal",
+                Molar = 1.008
+            },
+            new Element
+            {
+                Number = 2,
+                Sign = "He",
+                Name = "Helium",
+                Position = "Noble gas",
+                Molar = 4.003
+            },
+            new Element
+            {
+                Number = 3,
+                Sign = "Li",
+                Name = "Lithium",
+                Position = "Alkali metal",
+                Molar = 6.941
+            },
+            new Element
+            {
+                Number = 1,
+                Sign = "H",
+                Name = "Hydrogen",
+                Position = "Nonmetal",
+                Molar = 1.008
+            },
+            new Element
+            {
+                Number = 2,
+                Sign = "He",
+                Name = "Helium",
+                Position = "Noble gas",
+                Molar = 4.003
+            },
+            new Element
+            {
+                Number = 3,
+                Sign = "Li",
+                Name = "Lithium",
+                Position = "Alkali metal",
+                Molar = 6.941
+            }
+
+        };
+        
+        await base.OnInitializedAsync();
+
+    }
+    
+    //openCalender function
+    private void openCalender()
+    {
+        datePicker.ShowPopupAsync();
+    }
+
+
+    //create Element class'
+    public class Element
+    {
+        public int Number { get; set; }
+        public string Sign { get; set; }
+        public string Name { get; set; }
+        public string Position { get; set; }
+        public double Molar { get; set; }
+    }
+
+}

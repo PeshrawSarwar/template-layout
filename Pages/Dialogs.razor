@@ -1,0 +1,180 @@
+@page "/Dialogs"
+
+<div class="m-4">
+    
+    <div class="col-lg-12 control-section" id="target">
+        <div id="customization">
+              @if (this.ShowButton)
+                         {
+                             <button class="e-btn mx-2" @onclick="@OnBtnClick">Open</button>
+                         }
+              
+            <div class="animate">
+                <SfButton IsPrimary="true" CssClass="e-outline" Content="Zoom" OnClick="@(e => OnZoomBtnClick(DialogEffect.Zoom))"></SfButton>
+            </div>
+            <div class="animate">
+                <SfButton IsPrimary="true" CssClass="e-outline" Content="FlipX Down" OnClick="@(e => OnZoomBtnClick(DialogEffect.FlipXDown))"></SfButton>
+            </div>
+            <div class="animate">
+                <SfButton IsPrimary="true" CssClass="e-outline" Content="FlipX Up" OnClick="@(e => OnZoomBtnClick(DialogEffect.FlipXUp))"></SfButton>
+            </div>
+            <div class="animate">
+                <SfButton IsPrimary="true" CssClass="e-outline" Content="FlipY Left" OnClick="@(e => OnZoomBtnClick(DialogEffect.FlipYLeft))"></SfButton>
+            </div>
+            <div class="animate">
+                <SfButton IsPrimary="true" CssClass="e-outline" Content="FlipY Right" OnClick="@(e => OnZoomBtnClick(DialogEffect.FlipYRight))"></SfButton>
+            </div>
+
+
+
+
+        </div>
+        <SfDialog AllowDragging="true" @bind-Visible="@dialogVisible" IsModal="true" Width="285px" ShowCloseIcon="true" Target="#target">
+            <DialogTemplates>
+                <Header>
+                    Animation Dialog
+                </Header>
+                <Content>
+                    @content
+                </Content>
+            </DialogTemplates>
+            <DialogButtons>
+                <DialogButton Content="Hide" IsPrimary="true" OnClick="OnBtnCLick"></DialogButton>
+            </DialogButtons>
+            <DialogAnimationSettings Effect="@animationEffect"></DialogAnimationSettings>
+        </SfDialog>
+    </div>
+    
+    <div class="col-lg-12 control-section" id="target">
+        <div>
+           
+        </div>
+        <SfDialog Target="#target" Width="500px" ShowCloseIcon="true" @bind-Visible="Visibility">
+            <DialogTemplates>
+                <Header> About SYNCFUSION succinctly series </Header>
+                <Content>
+                    <p>
+                        In the Succinctly series, Syncfusion created a robust, free library of more than 130 technical e - books formatted for PDF, Kindle, and EPUB.<br> <br>
+                        The Succinctly series was born in 2012 out of a desire to provide concise technical e-books for software developers. Each title in the Succinctly series
+                        is written by a carefully chosen expert and provides essential content in about 100 pages.
+                    </p>
+                </Content>
+            </DialogTemplates>
+            <DialogEvents OnOpen="@DialogOpen" Closed="@DialogClose"></DialogEvents>
+            <DialogButtons>
+                <DialogButton IsPrimary="true" Content="<a id='newTab' href='https://www.syncfusion.com/company/about-us' target='_blank'>Learn More</a>" OnClick="@OnBtnClick"/>
+            </DialogButtons>
+        </SfDialog>
+    </div>
+</div>
+
+<style>
+    a, a:hover, .highcontrast #dialog a, .highcontrast #dialog a:hover {
+        color: inherit;
+        text-decoration: none;
+    }
+    .fabric #target .e-dialog {
+        height: 306px;
+    }
+    .material #target .e-dialog {
+        height: 270px;
+    }
+    .bootstrap4 #target .e-dialog {
+        height: 305px;
+    }
+    #target .e-dialog {
+        height: 320px;
+    }
+    #target {
+        height: 500px;
+    }
+    .e-dialog .e-dlg-header-content+.e-dlg-content {
+        padding-bottom: 0;
+    }
+</style>
+@code {
+    string content { get; set; } = "The dialog is configured with an animation effect. It is opened or closed with a 'Zoom In or Out' animation.";
+    bool dialogVisible { get; set; } = false;
+    DialogEffect animationEffect { get; set; } = DialogEffect.Zoom;
+    private void OnBtnCLick()
+    {
+        this.dialogVisible = false;
+    }
+    private void OnZoomBtnClick(DialogEffect type)
+    {
+        string text;
+        switch(type)
+        {
+            case DialogEffect.Zoom:
+                text = "Zoom";
+                break;
+            case DialogEffect.FlipXDown:
+                text = "FlipX Down";
+                break;
+            case DialogEffect.FlipXUp:
+                text = "FlipX Up";
+                break;
+            case DialogEffect.FlipYLeft:
+                text = "FlipX Left";
+                break;
+            default:
+                text = "FlipX Right";
+                break;
+        }
+        this.content = "The dialog is configured with an animation effect. It is opened or closed with a '" + text +"' animation.";
+        this.animationEffect = type;
+        this.dialogVisible = true;
+    }
+    
+    
+    
+    
+    private bool Visibility { get; set; } = false;
+    private bool ShowButton { get; set; } = true;
+    private void OnBtnClick()
+    {
+        this.Visibility = true;
+    }
+    private void DialogOpen(Object args)
+    {
+        this.ShowButton = false;
+    }
+    private void DialogClose(Object args)
+    {
+        this.ShowButton = true;
+    }
+}
+
+<style>
+    html,
+    body,
+    #container {
+        height: 100%;
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+        min-height: 400px;
+    }
+    .text {
+        text-transform: capitalize;
+    }
+#customization {
+display: table;
+margin: 0 auto;
+    }
+    .animate {
+    display: table-cell;
+        padding-left: 20px;
+    }
+    @@media only screen and (max-width: 360px) {
+            #customization {
+		        display: inline-block;
+		        margin: 0 auto;
+		        text-align: center;
+        	}
+	        .animate {
+	            display: inline-block;
+	            padding: 10px;
+	        }
+	    }
+</style>
