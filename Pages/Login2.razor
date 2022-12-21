@@ -1,0 +1,98 @@
+@page "/Login2"
+@using InputType = MudBlazor.InputType
+@inject NavigationManager _navigationManager
+@layout AuthLayout
+
+<div class="outline">
+    <MudGrid Spacing="0" Justify="Justify.FlexStart" >
+        <MudItem lg="6" md="6" xl="6" sm="12">
+            <div class="blurBackground">
+                <MudText>WANSoft</MudText>
+                <MudText>Turn Your Ideas Into Reality</MudText>
+            </div>
+            <img src="https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg?crop=0.66698xw:1xh;center,top&resize=1200:*" class="img-fluid" alt="Responsive image"/>
+        </MudItem>
+        <MudItem lg="6" md="6" xl="6" sm="12">
+            <MudForm>
+                <MudGrid Class="p-5" Container="true" ItemAlignment="Alignment.Center" Justify="Justify.Center">
+                    <MudItem xs="12" sm="12" md="12" lg="12" xl="12" Class="d-flex align-center justify-center mud-width-full py-2">
+                        <MudText Typo="Typo.h4" Style="margin-bottom: 20px;">Login</MudText>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="12" lg="12" xl="12">
+                        <MudTextField @bind-Value="_username" Label="Username"  Variant="Variant.Outlined" />
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="12" lg="12" xl="12">
+                        <MudTextField @bind-Value="_password" Label="Password" Variant="Variant.Outlined" InputType="InputType.Password"
+                                      Adornment="Adornment.End" AdornmentIcon="@Icons.Outlined.Lock" AdornmentColor="Color.Info" AdornmentAriaLabel="Show Password" />
+                    </MudItem>
+                    <MudItem xs="8" sm="8" md="8" lg="8" xl="8" Style="text-align: center">
+                        <MudButton FullWidth="true" Color="Color.Info" Variant="Variant.Filled" OnClick="@(() => _navigationManager.NavigateTo("/Dashboard"))"  Style="margin-top: 20px; padding: 15px">Login</MudButton>
+                    </MudItem>
+                </MudGrid>
+            </MudForm>
+        </MudItem>
+    </MudGrid>
+</div>
+<style>
+
+    /*create a mdeia query for the login page in smaller screens*/
+
+
+    body > div.mud-layout > div > div > div > div > div > div:nth-child(1) > p:nth-child(1){
+        position: absolute;
+        bottom: 200px;
+        left: 27%;
+        font-size: 42px;
+        color: #0b5ed7;
+    }
+    
+    body > div.mud-layout > div > div > div > div > div > div:nth-child(1) > p:nth-child(2){
+        position: absolute;
+        bottom: 160px;
+        left: 27%;
+        font-size: 32px;
+        color: #0b5ed7;
+    }
+
+    body > div.mud-layout > div > div > div > div > div:nth-child(2) > form{
+        margin-top: 100px;
+    }
+
+    body > div.mud-layout > div > div > div > div > div:nth-child(1){
+        padding: 0;
+    }
+
+    .outline{
+        box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+        background-color: #fff;
+        margin-left: 25%;
+        margin-right: 25%;
+        height: 75vh;
+    }
+
+    body > div.mud-layout > div > div > div > div{
+        height: 100%;
+    }
+
+    
+    body > div.mud-layout > div > div > div > div > div:nth-child(1) > img{
+        /*height: 100%;*/
+        /*zoom the image to fit the screen*/
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        
+    }
+    
+
+</style>
+
+
+
+
+@code {
+    
+    private string _username;
+    private string _password;
+    
+}

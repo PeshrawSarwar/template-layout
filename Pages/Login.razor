@@ -25,7 +25,7 @@
                                       Adornment="Adornment.End" AdornmentIcon="@Icons.Outlined.Lock" AdornmentColor="Color.Info" AdornmentAriaLabel="Show Password" />
                     </MudItem>
                     <MudItem xs="8" sm="8" md="8" lg="8" xl="8" Style="text-align: center">
-                        <MudButton FullWidth="true" Color="Color.Info" Variant="Variant.Filled"  Style="margin-top: 20px; padding: 15px">Login</MudButton>
+                        <MudButton FullWidth="true" Color="Color.Info" Variant="Variant.Filled" OnClick="@(() => _navigationManager.NavigateTo("/Dashboard"))" Style="margin-top: 20px; padding: 15px">Login</MudButton>
                     </MudItem>
                     <br/>
                 </MudGrid>
@@ -46,9 +46,9 @@
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
     background-color: #fff;
     padding: 50px;
-    width: 40%;
+    width: 35%;
     position: absolute;
-    left: 30%;
+    left: 32.5%;
     top: 20%;
 }
 
