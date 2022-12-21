@@ -48,8 +48,36 @@
     </div>
         <MudColorPicker @bind-text="@headerColor" @ref="_backgroundColorPicker" PickerVariant="PickerVariant.Dialog"  ColorPickerMode="MudBlazor.ColorPickerMode.HEX"  ColorPickerView="ColorPickerView.Palette"/>
         <MudColorPicker @bind-Text="@tableColor"  @ref="_backgroundColorPicker2" PickerVariant="PickerVariant.Dialog"  ColorPickerMode="MudBlazor.ColorPickerMode.HEX"  ColorPickerView="ColorPickerView.Palette"/>
-        <SfDatePicker TValue="DateTime?" Value="@DateValue" Placeholder="Choose a Date" Min="@MinDate" Max="@MaxDate" ShowClearButton="true" @ref="datePicker"></SfDatePicker>
+        @* <SfDatePicker TValue="DateTime?" Value="@DateValue" Placeholder="Choose a Date" Min="@MinDate" Max="@MaxDate" ShowClearButton="true" @ref="datePicker"></SfDatePicker> *@
+        
+        <div class="col-lg-2 control-section">
+            <div class="control-wrapper">
+                <label class="example-label">Pick a date</label>
+                <SfDateRangePicker TValue="DateTime?" Placeholder="Choose a period" ShowClearButton="true">
+                    <DateRangePickerPresets>
+                        <DateRangePickerPreset Label="This Week" Start="@WeekStart" End="@WeekEnd"></DateRangePickerPreset>
+                        <DateRangePickerPreset Label="This Month" Start="@MonthStart" End="@MonthEnd"></DateRangePickerPreset>
+                        <DateRangePickerPreset Label="Last Month" Start="@LastMonthStart" End="@LastMonthEnd"></DateRangePickerPreset>
+                        <DateRangePickerPreset Label="Last Year" Start="@LastYearStart" End="@LastYearEnd"></DateRangePickerPreset>
+                    </DateRangePickerPresets>
+                </SfDateRangePicker>
+            </div>
+        </div>
+        
 </div>
+
+<style>
+    .control-wrapper {
+        max-width: 300px;
+        margin: 0 auto;
+        padding: 40px 0px 0px;
+    }
+    .example-label {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+</style>
+
 
 <style>
         .mud-picker > div > div.mud-input-control-input-container{
@@ -58,6 +86,18 @@
 </style>
 
 @code {
+    
+    private DateTime LastMonth { get; set; }
+    private DateTime WeekStart { get; set; }
+    private DateTime WeekEnd { get; set; }
+    private DateTime MonthStart { get; set; }
+    private DateTime MonthEnd { get; set; }
+    private DateTime LastMonthStart { get; set; }
+    private DateTime LastMonthEnd { get; set; }
+    private DateTime LastYearStart { get; set; }
+    private DateTime LastYearEnd { get; set; }
+    private int Days { get; set; }
+    
     
     public DateTime DateValue { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 10);
     public DateTime MinDate { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 05);
@@ -87,10 +127,12 @@
     //give it random values
     private Element selectedItem1;
 
-    protected override async Task OnInitializedAsync()
+    protected override  void  OnInitialized()
     {
+        
+        
         headerColor = "#fff";
-         tableColor = "#fff";
+        tableColor = "#fff";
         
         Elements = new List<Element>
         {
@@ -145,7 +187,18 @@
 
         };
         
-        await base.OnInitializedAsync();
+        Days = (int)DateTime.Now.DayOfWeek;
+        LastMonth = DateTime.Now.AddMonths(-1);
+        WeekStart = DateTime.Now.AddDays(-Days);
+        WeekEnd = WeekStart.AddDays(6);
+        MonthStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+        MonthEnd = MonthStart.AddMonths(1).AddDays(-1);
+        LastMonthStart = new DateTime(LastMonth.Year, LastMonth.Month, 1);
+        LastMonthEnd = LastMonthStart.AddMonths(1).AddDays(-1);
+        LastYearStart = new DateTime(DateTime.Now.Year - 1, 1, 1);
+        LastYearEnd = new DateTime(DateTime.Now.Year - 1, 12, 31);
+        
+        InvokeAsync(StateHasChanged);
 
     }
     

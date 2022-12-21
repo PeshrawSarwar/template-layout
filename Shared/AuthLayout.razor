@@ -1,0 +1,31 @@
+@inherits LayoutComponentBase
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+<MudLayout>
+    <MudMainContent>
+        <MudContainer Class="mt-8" MaxWidth="MaxWidth.False">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+    <MudText Class="customFooter">WAN Company 2022 - All Rights Reserved</MudText>
+</MudLayout>
+
+<style>
+
+    body > div.mud-layout{
+        height: 100vh !important;
+    }
+    
+    body > div.mud-layout > p{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        background-color: #1b6ec2;
+        color: white;
+    }
+</style>

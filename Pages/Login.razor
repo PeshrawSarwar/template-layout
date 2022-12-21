@@ -1,0 +1,76 @@
+@page "/"
+@page "/Login"
+@using InputType = MudBlazor.InputType
+@inject NavigationManager _navigationManager
+@layout AuthLayout
+
+<div class="outline">
+    <MudGrid Class="mt-4" Justify="Justify.Center">
+        <MudContainer MaxWidth="MaxWidth.Small">
+            <MudItem Style="text-align: center" xs="12" xl="12" md="12" lg="12">
+                <MudText Typo="Typo.h4" Color="Color.Info">Layout Template</MudText>
+                <MudDivider DividerType="DividerType.Middle" Class="my-1" Style="color: #1b6ec2"/>
+            </MudItem>
+            
+            <MudForm>
+                <MudGrid Class="mt-5" Container="true" ItemAlignment="Alignment.Center" Justify="Justify.Center">
+                    <MudItem xs="12" sm="12" md="12" lg="12" xl="12" Class="d-flex align-center justify-center mud-width-full py-2">
+                        <MudText Typo="Typo.h4" Style="margin-bottom: 20px;">Login</MudText>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="12" lg="12" xl="12">
+                        <MudTextField @bind-Value="_username" Label="Username"  Variant="Variant.Outlined" />
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="12" lg="12" xl="12">
+                        <MudTextField @bind-Value="_password" Label="Password" Variant="Variant.Outlined" InputType="InputType.Password"
+                                      Adornment="Adornment.End" AdornmentIcon="@Icons.Outlined.Lock" AdornmentColor="Color.Info" AdornmentAriaLabel="Show Password" />
+                    </MudItem>
+                    <MudItem xs="8" sm="8" md="8" lg="8" xl="8" Style="text-align: center">
+                        <MudButton FullWidth="true" Color="Color.Info" Variant="Variant.Filled"  Style="margin-top: 20px; padding: 15px">Login</MudButton>
+                    </MudItem>
+                    <br/>
+                </MudGrid>
+            </MudForm>
+        </MudContainer>
+    </MudGrid>
+</div>
+
+
+
+<style>
+
+/*create a mdeia query for the login page in smaller screens*/
+
+.outline{
+ /*card shape*/
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+    background-color: #fff;
+    padding: 50px;
+    width: 40%;
+    position: absolute;
+    left: 30%;
+    top: 20%;
+}
+
+
+    body > div.mud-layout > div > div > div > div{
+        margin-top: 10px !important;
+    }
+    body > div.mud-layout > div > div > div > div > div > form > div > div:nth-child(2) > div > div > div > div.mud-input-outlined-border {
+        border-color: #2196f3 !important;
+    }
+    
+    body > div.mud-layout > div > div > div > div > div > form > div > div:nth-child(3) > div > div > div > div.mud-input-outlined-border {
+        border-color: #2196f3 !important;
+    }
+</style>
+
+
+
+
+@code {
+    
+    private string _username;
+    private string _password;
+    
+}
