@@ -756,7 +756,7 @@
     {
         return TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById(TimeZoneId));
     }
-    private async void OnMoreDetailsClick(MouseEventArgs args, AppointmentData data, bool isEventData)
+    private async void OnMoreDetailsClick(Microsoft.AspNetCore.Components.Web.MouseEventArgs  args, AppointmentData data, bool isEventData)
     {
         await ScheduleRef.CloseQuickInfoPopupAsync();
         if (isEventData == false)
@@ -808,7 +808,7 @@
         await ScheduleRef.CloseQuickInfoPopupAsync();
         await ScheduleRef.DeleteEventAsync(data, !string.IsNullOrEmpty(data.RecurrenceRule) ? CurrentAction.DeleteOccurrence : CurrentAction.Delete);
     }
-    private async Task OnAdd(MouseEventArgs args, AppointmentData data)
+    private async Task OnAdd(Microsoft.AspNetCore.Components.Web.MouseEventArgs args, AppointmentData data)
     {
         await ScheduleRef.CloseQuickInfoPopupAsync();
         AppointmentData cloneData = new AppointmentData

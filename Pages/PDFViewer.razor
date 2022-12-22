@@ -1,0 +1,17 @@
+@page "/PDFViewer"
+
+@using Syncfusion.Blazor.PdfViewer
+
+<SfUploader ID="UploadFiles" AllowedExtensions=".pdf,.PDF">
+    <UploaderEvents FileSelected="onsuccess"></UploaderEvents>
+</SfUploader>
+<SfPdfViewer @ref="@Viewer" Width="1060px" Height="500px" />
+
+@code {
+    SfPdfViewer Viewer;
+    public void onsuccess(SelectedEventArgs action)
+    {
+        string filePath = action.FilesData[0].RawFile.ToString();
+        Viewer.Load(filePath, null);
+    }
+}
